@@ -1,17 +1,39 @@
 import React from "react";
-import GitExpertApp from "../GitExpertApp";
 
-const Tablita = (GitExpertApp) => {
-	return <Table>{props.value}</Table>;
+const Tablita = (props) => {
+	const { datosProductos } = props;
+
+	if (!Array.isArray(datosProductos)) {
+		return;
+	}
+
+	let total = 0;
+
+	return (
+		<table>
+			<thead>
+				<tr>
+					<th>Producto</th>
+					<th>Precio</th>
+				</tr>
+			</thead>
+			<tbody>
+				{datosProductos.map((producto, index) => {
+					total += producto.precio;
+					return (
+						<tr key={index}>
+							<td>{producto.producto}</td>
+							<td>{producto.precio}</td>
+						</tr>
+					);
+				})}
+				<tr>
+					<td>Total</td>
+					<td>{total}</td>
+				</tr>
+			</tbody>
+		</table>
+	);
 };
-
-function NumberList(props) {
-	const numbers = props.numbers;
-	const listItems = numbers.map((number) => (
-		// Correcto! La key debería ser especificada dentro del array.
-		<ListItem key={number.toString()} value={number} />
-	));
-	return <ul>{listItems}</ul>;
-}
 
 export default Tablita;
